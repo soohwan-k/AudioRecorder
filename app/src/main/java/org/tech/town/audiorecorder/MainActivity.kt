@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private var state = State.BEFORE_RECORDING
         set(value) {
             field = value
+            resetButton.isEnabled = (value == State.AFTER_RECORDING) || (value == State.ON_PLAYING)
             recordButton.updateIconWithState(value)
         }
 
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         requestAudioPermission()
         initViews()
         bindViews()
+        initVariables()
     }
 
     override fun onRequestPermissionsResult(
@@ -86,6 +88,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun initVariables() {
+        state = State.BEFORE_RECORDING
     }
 
     private fun startRecording() {
